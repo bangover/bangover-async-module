@@ -17,9 +17,9 @@
 
 	<repositories>
 		<repository>
-			<id>bce</id>
-			<name>BCE Repository</name>
-			<url>https://maven.pkg.github.com/bincloud-io/bce</url>
+			<id>bangover</id>
+			<name>Bangover repository</name>
+			<url>https://maven.pkg.github.com/bangover/bangover-platform</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -37,9 +37,9 @@
 
 	<distributionManagement>
 		<repository>
-			<id>github</id>
-			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/bincloud-io/bce</url>
+			<id>bangover</id>
+			<name>Bangover repository</name>
+			<url>https://maven.pkg.github.com/bangover/bangover-platform</url>
 		</repository>
 	</distributionManagement>
 
@@ -53,6 +53,18 @@
 			</dependency>
 
 			<dependency>
+				<groupId>cloud.bangover</groupId>
+				<artifactId>bangover-commons</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>cloud.bangover</groupId>
+				<artifactId>bangover-commons-testkit</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit4.version}</version>
@@ -62,11 +74,11 @@
 	</dependencyManagement>
 
 	<build>
-	    <plugins>
+		<plugins>
 			<plugin>
-			  <groupId>org.codehaus.mojo</groupId>
-			  <artifactId>versions-maven-plugin</artifactId>
-			  <version>2.14.2</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.14.2</version>
 			</plugin>
 		</plugins>
 

@@ -1,5 +1,6 @@
 package cloud.bangover.async.timer;
 
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public final class TimeoutSupervisor {
-  private final ScheduledExecutorService executorService;
+  private Optional<ScheduledExecutorService> executorService = Optional.empty();
   private final TimeoutCallback callback;
   private final Timeout timeout;
 
@@ -24,7 +25,6 @@ public final class TimeoutSupervisor {
    */
   TimeoutSupervisor(Timeout timeout, TimeoutCallback callback) {
     super();
-    this.executorService = Executors.newSingleThreadScheduledExecutor();
     this.callback = callback;
     this.timeout = timeout;
   }
@@ -33,15 +33,20 @@ public final class TimeoutSupervisor {
    * Start the timeout supervision.
    */
   public void startSupervision() {
-    executorService.schedule(() -> callback.onTimeout(), timeout.getMilliseconds(),
-        TimeUnit.MILLISECONDS);
+    this.executorService = Optional.of(Executors.newSingleThreadScheduledExecutor());
+    this.executorService.ifPresent(service -> {
+      service.schedule(() -> callback.onTimeout(), timeout.getMilliseconds(),
+          TimeUnit.MILLISECONDS);
+    });
+
   }
 
   /**
    * Stop the timeout supervision.
    */
   public void stopSupervision() {
-    executorService.shutdownNow();
+    this.executorService.ifPresent(service -> service.shutdownNow());
+    this.executorService = Optional.empty();
   }
 
   /**

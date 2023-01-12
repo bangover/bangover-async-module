@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -157,7 +158,14 @@ public final class Promises {
       }
     }
 
-    private <C> DeferredFunction<C> createChainingDeferredFunctionExecutor(
+    @Override
+	public void await(long timeout) throws Exception {
+      CountDownLatch latch = new CountDownLatch(1);
+      finalize(() -> latch.countDown());	
+      latch.await(timeout, TimeUnit.SECONDS);
+	}
+
+	private <C> DeferredFunction<C> createChainingDeferredFunctionExecutor(
         ChainingDeferredFunction<T, C> chainingDeferredFunction) {
       return deferred -> {
         then(response -> {

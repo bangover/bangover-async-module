@@ -32,21 +32,19 @@
 		</dependency>
 
 		<dependency>
+			<groupId>cloud.bangover.async</groupId>
+			<artifactId>bangover-async</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>cloud.bangover</groupId>
 			<artifactId>bangover-commons</artifactId>
-			<version>0.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>cloud.bangover</groupId>
 			<artifactId>bangover-commons-testkit</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>cloud.bangover.async</groupId>
-			<artifactId>bangover-async</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
